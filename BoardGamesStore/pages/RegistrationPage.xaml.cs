@@ -64,6 +64,16 @@ namespace BoardGamesStore.pages
                 );
                 return;
             }
+            if (!IsPasswordMinLength())
+            {
+                MessageBox.Show(
+                    messageBoxText: "Минимальная длина пароля 8 символов",
+                    caption: "Ошибка регистрации",
+                    button: MessageBoxButton.OK,
+                    icon: MessageBoxImage.Error
+                );
+                return;
+            }
 
             string pastronymic = (PatronymicField.Text.Trim().Length == 0) ? null : PatronymicField.Text;
             Users newUser = new Users()
@@ -88,6 +98,11 @@ namespace BoardGamesStore.pages
         private bool IsPasswordRepCorrect()
         {
             return passwordField.Password == repPasswordField.Password;
+        }
+
+        private bool IsPasswordMinLength()
+        {
+            return passwordField.Password.Trim().Length >= 8;
         }
 
         private bool IsLoginFree()
