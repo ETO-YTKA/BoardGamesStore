@@ -18,27 +18,40 @@
             <Image Source="/image/logo.png" Height="40"/>
             <TextBlock Text="Каталог" FontSize="35" HorizontalAlignment="Center"/>
         </StackPanel>
-        <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,10" Grid.Row="1">
-            <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ScrollViewer Grid.Row="1">
+            <ListView HorizontalContentAlignment="Stretch" x:Name="listView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type bgstore:Games}">
-                        <Border BorderBrush="Pink" BorderThickness="10" Padding="10" CornerRadius="10">
-                            <StackPanel>
-                                <Image Source="{Binding ImagePath}"/>
-                                <TextBlock Text="{Binding Title}"/>
-                                <TextBlock Text="{Binding AgeRestriction}"/>
-                                <TextBlock Text="{Binding MinPlayers}"/>
-                                <TextBlock Text="{Binding MaxPlayers}"/>
-                                <TextBlock Text="{Binding PlayTime}"/>
-                                <TextBlock Text="{Binding Price}"/>
-                                <TextBlock Text="{Binding GenreGame.Name}"/>
-                                <TextBlock Text="{Binding DesignerGames.Name}"/>
-                                <TextBlock Text="{Binding PublisherGames.Name}"/>
-                            </StackPanel>
+                        <Border BorderBrush="Pink" BorderThickness="10" Padding="10" CornerRadius="10" HorizontalAlignment="Stretch">
+                            <Grid HorizontalAlignment="Stretch">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0" Source="{Binding ImagePath}" Height="130"/>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock Text="{Binding Title}"/>
+                                    <TextBlock Text="{Binding AgeRestriction, StringFormat={}{0}+}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="От "/>
+                                        <TextBlock Text="{Binding MinPlayers}"/>
+                                        <TextBlock Text=" до "/>
+                                        <TextBlock Text="{Binding MaxPlayers}"/>
+                                        <TextBlock Text=" игроков"/>
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding PlayTime, StringFormat=Время игры: {0}}"/>
+                                    <TextBlock Text="{Binding Publisher}"/>
+                                    <TextBlock Text="{Binding Designer}"/>
+                                    <TextBlock Text="{Binding Artist}"/>
+                                    <TextBlock Text="{Binding Genre}"/>
+                                </StackPanel>                              
+                                <TextBlock Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

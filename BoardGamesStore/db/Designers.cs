@@ -12,10 +12,10 @@ namespace BoardGamesStore.db
     using System;
     using System.Collections.Generic;
     
-    public partial class Designer
+    public partial class Designers
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Designer()
+        public Designers()
         {
             this.DesignerGame = new HashSet<DesignerGame>();
         }

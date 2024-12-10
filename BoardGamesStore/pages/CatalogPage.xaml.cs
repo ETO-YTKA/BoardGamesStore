@@ -1,4 +1,6 @@
-﻿using System;
+﻿using BoardGamesStore.Data;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +25,13 @@ namespace BoardGamesStore.pages
         public CatalogPage()
         {
             InitializeComponent();
+
+            UpdateData();
+        }
+
+        private void UpdateData()
+        {
+            listView.ItemsSource = AppConnect.model.Games.ToList();
         }
     }
 }

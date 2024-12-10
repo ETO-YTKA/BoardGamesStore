@@ -18,7 +18,7 @@ namespace BoardGamesStore.db
         public int Designer { get; set; }
         public int Game { get; set; }
     
-        public virtual Designer Designer1 { get; set; }
         public virtual Games Games { get; set; }
+        public virtual Designers Designers { get; set; }
     }
 }

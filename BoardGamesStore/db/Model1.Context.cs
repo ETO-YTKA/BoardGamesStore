@@ -27,7 +27,6 @@ namespace BoardGamesStore.db
     
         public virtual DbSet<ArtistGame> ArtistGame { get; set; }
         public virtual DbSet<Artists> Artists { get; set; }
-        public virtual DbSet<Designer> Designer { get; set; }
         public virtual DbSet<DesignerGame> DesignerGame { get; set; }
         public virtual DbSet<Games> Games { get; set; }
         public virtual DbSet<GenreGame> GenreGame { get; set; }
@@ -36,5 +35,6 @@ namespace BoardGamesStore.db
         public virtual DbSet<Publishers> Publishers { get; set; }
         public virtual DbSet<Roles> Roles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Designers> Designers { get; set; }
     }
 }

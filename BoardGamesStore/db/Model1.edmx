@@ -22,15 +22,6 @@
           <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Designer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
-        </EntityType>
         <EntityType Name="DesignerGame">
           <Key>
             <PropertyRef Name="Id" />
@@ -38,6 +29,15 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Designer" Type="int" Nullable="false" />
           <Property Name="Game" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Designers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -130,12 +130,12 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DesignerGame_Designer">
-          <End Role="Designer" Type="Self.Designer" Multiplicity="1">
+          <End Role="Designers" Type="Self.Designers" Multiplicity="1">
             <OnDelete Action="Cascade" />
           </End>
           <End Role="DesignerGame" Type="Self.DesignerGame" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Designer">
+            <Principal Role="Designers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="DesignerGame">
@@ -230,8 +230,8 @@
         <EntityContainer Name="Хранилище BoardGamesStoreModelContainer">
           <EntitySet Name="ArtistGame" EntityType="Self.ArtistGame" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Artists" EntityType="Self.Artists" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Designer" EntityType="Self.Designer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DesignerGame" EntityType="Self.DesignerGame" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Designers" EntityType="Self.Designers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Games" EntityType="Self.Games" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GenreGame" EntityType="Self.GenreGame" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Genres" EntityType="Self.Genres" Schema="dbo" store:Type="Tables" />
@@ -248,7 +248,7 @@
             <End Role="ArtistGame" EntitySet="ArtistGame" />
           </AssociationSet>
           <AssociationSet Name="FK_DesignerGame_Designer" Association="Self.FK_DesignerGame_Designer">
-            <End Role="Designer" EntitySet="Designer" />
+            <End Role="Designers" EntitySet="Designers" />
             <End Role="DesignerGame" EntitySet="DesignerGame" />
           </AssociationSet>
           <AssociationSet Name="FK_DesignerGame_Games" Association="Self.FK_DesignerGame_Games">
@@ -283,7 +283,6 @@
         <EntityContainer Name="BGSEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="ArtistGame" EntityType="BoardGamesStoreModel.ArtistGame" />
           <EntitySet Name="Artists" EntityType="BoardGamesStoreModel.Artists" />
-          <EntitySet Name="Designer" EntityType="BoardGamesStoreModel.Designer" />
           <EntitySet Name="DesignerGame" EntityType="BoardGamesStoreModel.DesignerGame" />
           <EntitySet Name="Games" EntityType="BoardGamesStoreModel.Games" />
           <EntitySet Name="GenreGame" EntityType="BoardGamesStoreModel.GenreGame" />
@@ -299,10 +298,6 @@
           <AssociationSet Name="FK_ArtistGame_Games" Association="BoardGamesStoreModel.FK_ArtistGame_Games">
             <End Role="Games" EntitySet="Games" />
             <End Role="ArtistGame" EntitySet="ArtistGame" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DesignerGame_Designer" Association="BoardGamesStoreModel.FK_DesignerGame_Designer">
-            <End Role="Designer" EntitySet="Designer" />
-            <End Role="DesignerGame" EntitySet="DesignerGame" />
           </AssociationSet>
           <AssociationSet Name="FK_DesignerGame_Games" Association="BoardGamesStoreModel.FK_DesignerGame_Games">
             <End Role="Games" EntitySet="Games" />
@@ -328,6 +323,11 @@
             <End Role="Roles" EntitySet="Roles" />
             <End Role="Users" EntitySet="Users" />
           </AssociationSet>
+          <EntitySet Name="Designers" EntityType="BoardGamesStoreModel.Designers" />
+          <AssociationSet Name="FK_DesignerGame_Designer" Association="BoardGamesStoreModel.FK_DesignerGame_Designer">
+            <End Role="Designers" EntitySet="Designers" />
+            <End Role="DesignerGame" EntitySet="DesignerGame" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ArtistGame">
           <Key>
@@ -349,16 +349,6 @@
           <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="ArtistGame" Relationship="BoardGamesStoreModel.FK_ArtistGame_Artists" FromRole="Artists" ToRole="ArtistGame" />
         </EntityType>
-        <EntityType Name="Designer">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="DesignerGame" Relationship="BoardGamesStoreModel.FK_DesignerGame_Designer" FromRole="Designer" ToRole="DesignerGame" />
-        </EntityType>
         <EntityType Name="DesignerGame">
           <Key>
             <PropertyRef Name="Id" />
@@ -366,8 +356,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Designer" Type="Int32" Nullable="false" />
           <Property Name="Game" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Designer1" Relationship="BoardGamesStoreModel.FK_DesignerGame_Designer" FromRole="DesignerGame" ToRole="Designer" />
           <NavigationProperty Name="Games" Relationship="BoardGamesStoreModel.FK_DesignerGame_Games" FromRole="DesignerGame" ToRole="Games" />
+          <NavigationProperty Name="Designers" Relationship="BoardGamesStoreModel.FK_DesignerGame_Designer" FromRole="DesignerGame" ToRole="Designers" />
         </EntityType>
         <EntityType Name="Games">
           <Key>
@@ -471,20 +461,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_DesignerGame_Designer">
-          <End Type="BoardGamesStoreModel.Designer" Role="Designer" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BoardGamesStoreModel.DesignerGame" Role="DesignerGame" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Designer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="DesignerGame">
-              <PropertyRef Name="Designer" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_DesignerGame_Games">
           <End Type="BoardGamesStoreModel.Games" Role="Games" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -569,6 +545,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Designers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DesignerGame" Relationship="BoardGamesStoreModel.FK_DesignerGame_Designer" FromRole="Designers" ToRole="DesignerGame" />
+        </EntityType>
+        <Association Name="FK_DesignerGame_Designer">
+          <End Type="BoardGamesStoreModel.Designers" Role="Designers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="BoardGamesStoreModel.DesignerGame" Role="DesignerGame" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Designers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="DesignerGame">
+              <PropertyRef Name="Designer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -587,16 +587,6 @@
           <EntitySetMapping Name="Artists">
             <EntityTypeMapping TypeName="BoardGamesStoreModel.Artists">
               <MappingFragment StoreEntitySet="Artists">
-                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Designer">
-            <EntityTypeMapping TypeName="BoardGamesStoreModel.Designer">
-              <MappingFragment StoreEntitySet="Designer">
                 <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
@@ -678,6 +668,16 @@
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Designers">
+            <EntityTypeMapping TypeName="BoardGamesStoreModel.Designers">
+              <MappingFragment StoreEntitySet="Designers">
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
