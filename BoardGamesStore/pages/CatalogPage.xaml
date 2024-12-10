@@ -12,17 +12,27 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Image Source="/image/logo.png" Height="40"/>
             <TextBlock Text="Каталог" FontSize="35" HorizontalAlignment="Center"/>
         </StackPanel>
-        <ScrollViewer Grid.Row="1">
+        <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,5">
+            <TextBox x:Name="searchCond" Width="150" Margin="0,0,5,0"/>
+            <TextBlock Text="Поиск по" Margin="0,0,5,0"/>
+            <ComboBox Name="searchFilter" Margin="0,0,5,0"/>
+            <ComboBox Name="genreFilter" Margin="0,0,5,0"/>
+            <ComboBox Name="publisherFilter" Margin="0,0,5,0"/>
+            <ComboBox Name="artistFilter" Margin="0,0,5,0"/>
+            <ComboBox Name="designerFilter"/>
+        </StackPanel>
+        <ScrollViewer Grid.Row="2">
             <ListView HorizontalContentAlignment="Stretch" x:Name="listView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type bgstore:Games}">
-                        <Border BorderBrush="Pink" BorderThickness="10" Padding="10" CornerRadius="10" HorizontalAlignment="Stretch">
+                        <Border BorderBrush="Black" BorderThickness="1" Padding="10" CornerRadius="10" HorizontalAlignment="Stretch">
                             <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="1*"/>

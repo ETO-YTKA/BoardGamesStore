@@ -27,11 +27,37 @@ namespace BoardGamesStore.pages
             InitializeComponent();
 
             UpdateData();
+            LoadComboBoxData();
         }
 
         private void UpdateData()
         {
             listView.ItemsSource = AppConnect.model.Games.ToList();
+        }
+
+        private void LoadComboBoxData()
+        {
+            var artists = AppConnect.model.Artists.ToList();
+            var publishers = AppConnect.model.Publishers.ToList();
+            var genres = AppConnect.model.Genres.ToList();
+            var designers = AppConnect.model.Designers.ToList();
+
+            foreach (var artist in artists)
+            {
+                artistFilter.Items.Add(artist.NameWithInitials);
+            }
+            foreach (var publisher in publishers)
+            {
+                publisherFilter.Items.Add(publisher.Name);
+            }
+            foreach (var genre in genres)
+            {
+                genreFilter.Items.Add(genre.Name);
+            }
+            foreach (var designer in designers)
+            {
+                designerFilter.Items.Add(designer.NameWithInitials);
+            }
         }
     }
 }
