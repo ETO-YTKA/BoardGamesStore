@@ -30,7 +30,6 @@ namespace BoardGamesStore.db
         public int MaxPlayers { get; set; }
         public int PlayTime { get; set; }
         public string Image { get; set; }
-        public int Genre { get; set; }
         public decimal Price { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

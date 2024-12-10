@@ -5,27 +5,26 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="5bd6c9d934124a5483513e0c76aca3fd" Name="Diagram1">
-        <EntityTypeShape EntityType="BoardGamesStoreModel.ArtistGame" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Artists" Width="1.5" PointX="0.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Designer" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.DesignerGame" Width="1.5" PointX="3" PointY="3.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Games" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.GenreGame" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Genres" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.PublisherGame" Width="1.5" PointX="6" PointY="6.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Publishers" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Roles" Width="1.5" PointX="5.75" PointY="2.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BoardGamesStoreModel.Users" Width="1.5" PointX="8" PointY="2.125" IsExpanded="true" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_ArtistGame_Artists" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_ArtistGame_Games" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_DesignerGame_Designer" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_DesignerGame_Games" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_GenreGame_Games" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_PublisherGame_Games" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_GenreGame_Genres" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_PublisherGame_Publishers" ManuallyRouted="false" />
-        <AssociationConnector Association="BoardGamesStoreModel.FK_Users_Roles" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.ArtistGame" Width="1.5" PointX="6" PointY="6.75" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Artists" Width="1.5" PointX="3.75" PointY="0.75" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Designer" Width="1.5" PointX="0.75" PointY="2.75" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.DesignerGame" Width="1.5" PointX="3" PointY="3.75" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Games" Width="1.5" PointX="0.75" PointY="6.125" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.GenreGame" Width="1.5" PointX="3" PointY="6.75" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Genres" Width="1.5" PointX="0.75" PointY="11" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.PublisherGame" Width="1.5" PointX="3.125" PointY="9.625" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Publishers" Width="1.5" PointX="0.75" PointY="14" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Roles" Width="1.5" PointX="5.75" PointY="2.75" />
+        <EntityTypeShape EntityType="BoardGamesStoreModel.Users" Width="1.5" PointX="8" PointY="2.25" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_ArtistGame_Artists" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_ArtistGame_Games" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_DesignerGame_Designer" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_DesignerGame_Games" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_GenreGame_Games" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_PublisherGame_Games" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_GenreGame_Genres" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_PublisherGame_Publishers" />
+        <AssociationConnector Association="BoardGamesStoreModel.FK_Users_Roles" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

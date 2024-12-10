@@ -74,6 +74,7 @@
     </Compile>
     <Compile Include="data\AppConnect.cs" />
     <Compile Include="data\AppFrame.cs" />
+    <Compile Include="data\ImagePath.cs" />
     <Compile Include="db\ArtistGame.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -117,9 +118,6 @@
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="db\Roles.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
-    <Compile Include="db\sysdiagrams.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="db\Users.cs">
@@ -198,6 +196,7 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="image\placeholder.jpg" />
     <Resource Include="image\logo.png" />
   </ItemGroup>
   <ItemGroup>
