@@ -1,0 +1,62 @@
+﻿<Page x:Class="BoardGamesStore.pages.AddItem"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:BoardGamesStore.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AddItem">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/image/logo.png" Height="40"/>
+            <TextBlock Text="Добавление товара" FontSize="35" HorizontalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,0" Grid.Row="1">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel Width="200" Margin="0,0,20,0">
+                    <TextBlock Text="Название" FontSize="15"/>
+                    <TextBox Name="titleField"/>
+                    <TextBlock Text="Жанр" FontSize="15"/>
+                    <ComboBox Name="genreField"/>
+                    <TextBlock Text="Издатель" FontSize="15"/>
+                    <ComboBox Name="publisherField"/>
+                    <TextBlock Text="Художник" FontSize="15"/>
+                    <ComboBox Name="artistField"/>
+                    <TextBlock Text="Дизайнер" FontSize="15"/>
+                    <ComboBox Name="designerField"/>
+                </StackPanel>
+
+                <StackPanel Width="200">
+                    <TextBlock Text="Минимальное количество игроков" FontSize="15"/>
+                    <TextBox Name="minPlayersField"/>
+                    <TextBlock Text="Максимальное количество игроков" FontSize="15"/>
+                    <TextBox Name="maxPlayersField"/>
+                    <TextBlock Text="Цена" FontSize="15"/>
+                    <TextBox Name="priceField"/>
+                    <TextBlock Text="Время игры" FontSize="15"/>
+                    <TextBox Name="playTimeField"/>
+                    <TextBlock Text="Возрастное ограничение" FontSize="15"/>
+                    <ComboBox Name="ageRestrictionField">
+                        <ComboBoxItem Content="0+"/>
+                        <ComboBoxItem Content="3+"/>
+                        <ComboBoxItem Content="7+"/>
+                        <ComboBoxItem Content="12+"/>
+                        <ComboBoxItem Content="16+"/>
+                        <ComboBoxItem Content="18+"/>
+                    </ComboBox>
+                    <Button Name="selectPhoto" Content="Выбрать фотографию" Width="200" FontSize="15" Click="OnSelectPhotoClick" Margin="0,15,0,0"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                <Button Content="Добавить" Width="100" FontSize="15" Click="OnAddItemClick" Margin="0,0,10,0"/>
+                <Button Content="Назад" Width="100" FontSize="15" Click="OnReturnClick"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -41,7 +41,7 @@
             <Button Name="sortDirectionButton" Tag="asc" Content="↑" Width="20" Click="Button_Click" Margin="0,0,10,0"/>
 
             <TextBlock Text="Фильтр по жанру" Margin="0,0,5,0"/>
-            <ComboBox SelectedIndex="0" Name="listViewFilter" SelectionChanged="ComboBox_SelectionChanged">
+            <ComboBox SelectedIndex="0" Name="listViewFilter" SelectionChanged="ComboBox_SelectionChanged" Margin="0,0,10,0">
                 <ComboBoxItem Content="Все" Tag="All"/>
                 <ComboBoxItem Content="Стратегии" Tag="Strategy"/>
                 <ComboBoxItem Content="Семейные" Tag="Family"/>
@@ -52,9 +52,17 @@
                 <ComboBoxItem Content="eurogame" Tag="EuroGame"/>
                 <ComboBoxItem Content="тематические" Tag="Thematic"/>
             </ComboBox>
+
+            <Button Name="addItem" Content="Добавить товар" Click="OnAddItemClick"/>
         </StackPanel>
         <ScrollViewer Grid.Row="2">
             <ListView HorizontalContentAlignment="Stretch" x:Name="listView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+                <ListView.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem x:Name="editItemContextOption" Header="Редактировать" Click="OnEditItemClick"></MenuItem>
+                        <MenuItem x:Name="deleteItemContextOption" Header="Удалить" Click="OnDeleteItemClick"></MenuItem>
+                    </ContextMenu>
+                </ListView.ContextMenu>
                 <ListView.ItemTemplate>
                     <DataTemplate DataType="{x:Type bgstore:Games}">
                         <Border BorderBrush="Black" BorderThickness="1" Padding="10" CornerRadius="10" HorizontalAlignment="Stretch">

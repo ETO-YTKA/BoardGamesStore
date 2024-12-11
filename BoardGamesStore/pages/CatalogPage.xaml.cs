@@ -27,9 +27,10 @@ namespace BoardGamesStore.pages
     {
         private bool isInit = false;
 
-        public CatalogPage()
+        public CatalogPage(Users user)
         {
             InitializeComponent();
+            UserRoleCheck(user);
             isInit = true;
 
             LoadCatalogData();
@@ -137,6 +138,42 @@ namespace BoardGamesStore.pages
             }
 
             listView.ItemsSource = filteredGames.ToList();
+        }
+
+        private void UserRoleCheck(Users user)
+        {
+            string role = user.Roles.Name;
+
+            switch (role)
+            {
+                case "Админ":
+                    editItemContextOption.Visibility = Visibility.Visible;
+                    deleteItemContextOption.Visibility = Visibility.Visible;
+                    break;
+                case "Пользователь":
+                    editItemContextOption.Visibility = Visibility.Collapsed;
+                    deleteItemContextOption.Visibility = Visibility.Collapsed;
+                    break;
+                case "Менеджер":
+                    editItemContextOption.Visibility = Visibility.Visible;
+                    deleteItemContextOption.Visibility = Visibility.Collapsed;
+                    break;
+            }
+        }
+
+        private void OnEditItemClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnDeleteItemClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnAddItemClick(object sender, RoutedEventArgs e)
+        {
+            AppFrame.frame.Navigate(new AddItem());
         }
     }
 }

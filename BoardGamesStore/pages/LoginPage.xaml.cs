@@ -46,7 +46,7 @@ namespace BoardGamesStore.pages
                         button: MessageBoxButton.OK,
                         icon: MessageBoxImage.None
                     );
-                    AppFrame.frame.Navigate(new CatalogPage());
+                    AppFrame.frame.Navigate(new CatalogPage(user));
                 }
                 else
                 {
