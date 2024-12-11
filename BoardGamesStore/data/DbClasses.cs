@@ -82,6 +82,14 @@ namespace BoardGamesStore.db
                 return $"{LastName} {FirstName.First()}." + (Patronymic is null ? "" : $" {Patronymic.First()}.");
             }
         }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{LastName} {FirstName}" + (Patronymic is null ? "" : $" {Patronymic}");
+            }
+        }
     }
 
     public partial class Designers
@@ -91,6 +99,14 @@ namespace BoardGamesStore.db
             get
             {
                 return $"{LastName} {FirstName.First()}." + (Patronymic is null ? "" : $" {Patronymic.First()}.");
+            }
+        }
+
+        public string FullName
+        {
+            get
+            {
+                return $"{LastName} {FirstName}" + (Patronymic is null ? "" : $" {Patronymic}");
             }
         }
     }

@@ -20,13 +20,38 @@
             <TextBlock Text="Каталог" FontSize="35" HorizontalAlignment="Center"/>
         </StackPanel>
         <StackPanel Grid.Row="1" HorizontalAlignment="Left" Orientation="Horizontal" Margin="0,5,0,5">
-            <TextBox x:Name="searchCond" Width="150" Margin="0,0,5,0"/>
+            <TextBox x:Name="searchField" Width="150" Margin="0,0,5,0" TextChanged="searchCond_TextChanged"/>
             <TextBlock Text="Поиск по" Margin="0,0,5,0"/>
-            <ComboBox Name="searchFilter" Margin="0,0,5,0"/>
-            <ComboBox Name="genreFilter" Margin="0,0,5,0"/>
-            <ComboBox Name="publisherFilter" Margin="0,0,5,0"/>
-            <ComboBox Name="artistFilter" Margin="0,0,5,0"/>
-            <ComboBox Name="designerFilter"/>
+            <ComboBox Name="searchFilter" SelectedIndex="0" Margin="0,0,10,0">
+                <ComboBoxItem Content="названию" Tag="name"/>
+                <ComboBoxItem Content="жанру" Tag="genre"/>
+                <ComboBoxItem Content="издателю" Tag="publisher"/>
+                <ComboBoxItem Content="художнику" Tag="artist"/>
+                <ComboBoxItem Content="дизайнеру" Tag="designer"/>
+            </ComboBox>
+
+            <TextBlock Text="Сортировка по" Margin="0,0,5,0"/>
+            <ComboBox SelectedIndex="0" Name="listViewSort" Margin="0,0,5,0" SelectionChanged="listViewFilter_SelectionChanged">
+                <ComboBoxItem Content="названию" Tag="Title"/>
+                <ComboBoxItem Content="минимуму игроком" Tag="MinPlayers"/>
+                <ComboBoxItem Content="максимуму игроков" Tag="MaxPlayers"/>
+                <ComboBoxItem Content="цене" Tag="Price"/>
+                <ComboBoxItem Content="времени игры" Tag="PlayTime"/>
+            </ComboBox>
+            <Button Name="sortDirectionButton" Tag="asc" Content="↑" Width="20" Click="Button_Click" Margin="0,0,10,0"/>
+
+            <TextBlock Text="Фильтр по жанру" Margin="0,0,5,0"/>
+            <ComboBox SelectedIndex="0" Name="listViewFilter" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="Все" Tag="All"/>
+                <ComboBoxItem Content="Стратегии" Tag="Strategy"/>
+                <ComboBoxItem Content="Семейные" Tag="Family"/>
+                <ComboBoxItem Content="кооперативные" Tag="Cooperative"/>
+                <ComboBoxItem Content="для вечеринок" Tag="Party"/>
+                <ComboBoxItem Content="приключение" Tag="Adventure"/>
+                <ComboBoxItem Content="карточные" Tag="Card Game"/>
+                <ComboBoxItem Content="eurogame" Tag="EuroGame"/>
+                <ComboBoxItem Content="тематические" Tag="Thematic"/>
+            </ComboBox>
         </StackPanel>
         <ScrollViewer Grid.Row="2">
             <ListView HorizontalContentAlignment="Stretch" x:Name="listView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
@@ -51,10 +76,10 @@
                                         <TextBlock Text=" игроков"/>
                                     </StackPanel>
                                     <TextBlock Text="{Binding PlayTime, StringFormat=Время игры: {0}}"/>
-                                    <TextBlock Text="{Binding Publisher}"/>
-                                    <TextBlock Text="{Binding Designer}"/>
-                                    <TextBlock Text="{Binding Artist}"/>
-                                    <TextBlock Text="{Binding Genre}"/>
+                                    <TextBlock Text="{Binding Genre, StringFormat=Жанры: {0}}"/>
+                                    <TextBlock Text="{Binding Publisher, StringFormat=Издатели: {0}}"/>
+                                    <TextBlock Text="{Binding Designer, StringFormat=Дизайнеры: {0}}"/>
+                                    <TextBlock Text="{Binding Artist, StringFormat=Художники: {0}}"/>
                                 </StackPanel>                              
                                 <TextBlock Grid.Column="2" Text="{Binding Price}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20"/>
                             </Grid>

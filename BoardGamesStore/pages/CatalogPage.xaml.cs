@@ -1,7 +1,10 @@
 ﻿using BoardGamesStore.Data;
+using BoardGamesStore.db;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,42 +25,118 @@ namespace BoardGamesStore.pages
     /// </summary>
     public partial class CatalogPage : Page
     {
+        private bool isInit = false;
+
         public CatalogPage()
         {
             InitializeComponent();
+            isInit = true;
 
-            UpdateData();
-            LoadComboBoxData();
+            LoadCatalogData();
         }
 
-        private void UpdateData()
+        private void LoadCatalogData()
         {
             listView.ItemsSource = AppConnect.model.Games.ToList();
         }
 
-        private void LoadComboBoxData()
+        private void searchCond_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var artists = AppConnect.model.Artists.ToList();
-            var publishers = AppConnect.model.Publishers.ToList();
-            var genres = AppConnect.model.Genres.ToList();
-            var designers = AppConnect.model.Designers.ToList();
+            Search();
+        }
 
-            foreach (var artist in artists)
+        private void listViewFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            sortListView();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            sortListView();
+        }
+
+        private void sortListView()
+        {
+            if (!isInit) return;
+            ComboBoxItem filter = listViewSort.SelectedItem as ComboBoxItem;
+            string propertyName = filter.Tag.ToString();
+
+            Button button = sortDirectionButton as Button;
+            string directionTag = button.Tag.ToString();
+            ListSortDirection sortDirection;
+
+            if (directionTag == "asc")
             {
-                artistFilter.Items.Add(artist.NameWithInitials);
+                sortDirection = ListSortDirection.Ascending;
+                button.Tag = "desc";
+                button.Content = "↓";
             }
-            foreach (var publisher in publishers)
+            else
             {
-                publisherFilter.Items.Add(publisher.Name);
+                sortDirection = ListSortDirection.Descending;
+                button.Tag = "asc";
+                button.Content = "↑";
             }
-            foreach (var genre in genres)
+
+            listView.Items.SortDescriptions.Clear();
+            listView.Items.SortDescriptions.Add(new SortDescription(propertyName, sortDirection));
+        }
+
+        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Search();
+        }
+
+        private void Search()
+        {
+            if (!isInit) return;
+            string search = searchField.Text.Trim().ToLower();
+            ComboBoxItem selectedSearchFilter = this.searchFilter.SelectedItem as ComboBoxItem;
+            string searchFilterTag = selectedSearchFilter.Tag.ToString();
+            ComboBoxItem selectedGenre = listViewFilter.SelectedItem as ComboBoxItem;
+            string genreTag = selectedGenre.Tag.ToString();
+            IQueryable<Games> filteredGames = AppConnect.model.Games;
+
+            if (genreTag != "All")
             {
-                genreFilter.Items.Add(genre.Name);
+                filteredGames = AppConnect.model.Games.Where(x => AppConnect.model.GenreGame
+                    .Any(gg => gg.Game == x.Id && AppConnect.model.Genres
+                        .Any(g => g.Id == gg.Genre && g.Name.Equals(genreTag, StringComparison.OrdinalIgnoreCase))));
             }
-            foreach (var designer in designers)
+
+            switch (searchFilterTag)
             {
-                designerFilter.Items.Add(designer.NameWithInitials);
+                case "name":
+                    filteredGames = filteredGames
+                        .Where(x => x.Title.ToLower().Contains(search));
+                    break;
+                case "artist":
+                    filteredGames = filteredGames
+                        .Where(x => AppConnect.model.ArtistGame
+                            .Any(ag => ag.Game == x.Id && AppConnect.model.Artists
+                                .Any(a => a.Id == ag.Artist && a.FullName.ToLower().Contains(search))));
+                    break;
+                case "publisher":
+                    filteredGames = filteredGames
+                        .Where(x => AppConnect.model.PublisherGame
+                            .Any(pg => pg.Game == x.Id && AppConnect.model.Publishers
+                                .Any(p => p.Id == pg.Publisher && p.Name.ToLower().Contains(search))));
+                    break;
+                case "genre":
+                    filteredGames = filteredGames
+                        .Where(x => AppConnect.model.GenreGame
+                            .Any(gg => gg.Game == x.Id && AppConnect.model.Genres
+                                .Any(g => g.Id == gg.Genre && g.Name.ToLower().Contains(search))));
+                    break;
+                case "designer":
+                    filteredGames = filteredGames
+                        .Where(x => AppConnect.model.DesignerGame
+                            .Any(dg => dg.Game == x.Id && AppConnect.model.Designers
+                                .Any(d => d.Id == dg.Designer && d.FullName.ToLower().Contains(search))));
+                    break;
             }
+
+            listView.ItemsSource = filteredGames.ToList();
         }
     }
 }
