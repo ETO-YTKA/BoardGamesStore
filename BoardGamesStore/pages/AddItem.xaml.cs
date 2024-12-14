@@ -24,7 +24,7 @@ namespace BoardGamesStore.pages
     /// </summary>
     public partial class AddItem : Page
     {
-        private string imagePath;
+        private string imageName;
 
         public AddItem()
         {
@@ -38,11 +38,12 @@ namespace BoardGamesStore.pages
             openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
             if (openFileDialog.ShowDialog() == true)
             {
-                string imageName = openFileDialog.FileName.Split('\\').Last();
-                string pathToSave = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + $"\\image\\{DateTime.Now.Ticks + imageName}";
+                string imageNameToDisplay = openFileDialog.FileName.Split('\\').Last();
+                string imageName = DateTime.Now.Ticks + openFileDialog.FileName.Split('\\').Last();
+                string pathToSave = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + $"\\image\\{imageName}";
                 File.Copy(openFileDialog.FileName, pathToSave);
-                imagePath = imageName;
-                selectPhoto.Content = imageName;
+                this.imageName = imageName;
+                selectPhoto.Content = imageNameToDisplay;
             }
         }
         private void LoadComboBoxData()
@@ -72,6 +73,10 @@ namespace BoardGamesStore.pages
 
         private void OnAddItemClick(object sender, RoutedEventArgs e)
         {
+            if (!AddItemChecks())
+            {
+                return;
+            }
             Games game = new Games
             {
                 Title = titleField.Text,
@@ -80,13 +85,13 @@ namespace BoardGamesStore.pages
                 Price = Convert.ToDecimal(priceField.Text),
                 PlayTime = Convert.ToInt32(playTimeField.Text),
                 AgeRestriction = Convert.ToInt32(ageRestrictionField.Text.Remove(ageRestrictionField.Text.Length - 1)),
-                Image = imagePath
+                Image = imageName
             };
 
             AppConnect.model.Games.Add(game);
             AppConnect.model.SaveChanges();
 
-            game = AppConnect.model.Games.First(x => x.Title == game.Title);
+            Games insertedGame = AppConnect.model.Games.ToList().Last();
             int publisherId = AppConnect.model.Publishers.First(x => x.Name == publisherField.Text).Id;
             int genreId = AppConnect.model.Genres.First(x => x.Name == genreField.Text).Id;
             string artistLastName = artistField.Text.Split(' ')[0];
@@ -96,22 +101,22 @@ namespace BoardGamesStore.pages
 
             PublisherGame publisherGame = new PublisherGame
             {
-                Game = game.Id,
+                Game = insertedGame.Id,
                 Publisher = publisherId
             };
             GenreGame genreGame = new GenreGame
             {
-                Game = game.Id,
+                Game = insertedGame.Id,
                 Genre = genreId
             };
             ArtistGame artistGame = new ArtistGame
             {
-                Game = game.Id,
+                Game = insertedGame.Id,
                 Artist = artistId
             };
             DesignerGame designerGame = new DesignerGame
             {
-                Game = game.Id,
+                Game = insertedGame.Id,
                 Designer = designerId
             };
 
@@ -122,6 +127,52 @@ namespace BoardGamesStore.pages
 
             AppConnect.model.SaveChanges();
             MessageBox.Show("Игра успешно добавлена");
+        }
+
+        private bool AddItemChecks()
+        {
+            if (titleField.Text == "" || 
+                genreField.SelectedIndex == -1 || 
+                publisherField.SelectedIndex == -1 || 
+                artistField.SelectedIndex == -1 || 
+                designerField.SelectedIndex == -1 || 
+                maxPlayersField.Text == "" || 
+                minPlayersField.Text == "" || 
+                priceField.Text == "" || 
+                playTimeField.Text == "" || 
+                ageRestrictionField.Text == "" || 
+                imageName == null
+            )
+            {
+                MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!int.TryParse(minPlayersField.Text, out int minPlayers) || minPlayers <= 0)
+            {
+                MessageBox.Show("Введите корректное минимальное количество игроков.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!int.TryParse(maxPlayersField.Text, out int maxPlayers) || maxPlayers < minPlayers)
+            {
+                MessageBox.Show("Введите корректное максимальное количество игроков (не меньше минимального).", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!decimal.TryParse(priceField.Text, out decimal price) || price <= 0)
+            {
+                MessageBox.Show("Введите корректную цену.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (!int.TryParse(playTimeField.Text, out int playTime) || playTime <= 0)
+            {
+                MessageBox.Show("Введите корректное время игры.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            return true;
         }
     }
 }

@@ -12,9 +12,9 @@ namespace BoardGamesStore.db
         public string ImagePath { 
             get
             {
-                string penis = Image is null ? $"../../image/placeholder.jpg" : $"../../image/{Image}";
-                Console.WriteLine(penis);
-                return penis;
+                string imagePath = $"../../image/{Image}";
+                Console.WriteLine(imagePath);
+                return imagePath;
             }
         }
 

@@ -149,31 +149,54 @@ namespace BoardGamesStore.pages
                 case "Админ":
                     editItemContextOption.Visibility = Visibility.Visible;
                     deleteItemContextOption.Visibility = Visibility.Visible;
+                    addItem.Visibility = Visibility.Visible;
                     break;
                 case "Пользователь":
                     editItemContextOption.Visibility = Visibility.Collapsed;
                     deleteItemContextOption.Visibility = Visibility.Collapsed;
+                    addItem.Visibility = Visibility.Collapsed;
                     break;
                 case "Менеджер":
                     editItemContextOption.Visibility = Visibility.Visible;
                     deleteItemContextOption.Visibility = Visibility.Collapsed;
+                    addItem.Visibility = Visibility.Visible;
                     break;
             }
         }
 
         private void OnEditItemClick(object sender, RoutedEventArgs e)
         {
-
+            Games game = listView.SelectedItem as Games;
+            AppFrame.frame.Navigate(new EditPage(game));
+            Search();
         }
 
         private void OnDeleteItemClick(object sender, RoutedEventArgs e)
         {
+            Games game = listView.SelectedItem as Games;
+            if (game == null)
+            {
+                MessageBox.Show("Выберите игру для удаления");
+                return;
+            }
 
+            try
+            {
+                AppConnect.model.Games.Remove(game);
+                AppConnect.model.SaveChanges();
+                MessageBox.Show("Игра успешно удалена");
+                Search();
+            }
+            catch (DbUpdateException)
+            {
+                MessageBox.Show("Невозможно удалить игру, так как она используется в других таблицах");
+            }
         }
 
         private void OnAddItemClick(object sender, RoutedEventArgs e)
         {
             AppFrame.frame.Navigate(new AddItem());
+            Search();
         }
     }
 }
