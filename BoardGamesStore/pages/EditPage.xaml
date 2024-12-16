@@ -13,36 +13,64 @@
             <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="/image/logo.png" Height="40"/>
-            <TextBlock Text="Добавление товара" FontSize="35" HorizontalAlignment="Center"/>
-        </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,0" Grid.Row="1">
-            <StackPanel Orientation="Horizontal">
-                <StackPanel Width="200" Margin="0,0,20,0">
-                    <TextBlock Text="Название" FontSize="15"/>
-                    <TextBox Name="titleField"/>
-                    <TextBlock Text="Жанр" FontSize="15"/>
-                    <ComboBox Name="genreField" SelectedValuePath="Id" DisplayMemberPath="Name"/>
-                    <TextBlock Text="Издатель" FontSize="15"/>
-                    <ComboBox Name="publisherField" SelectedValuePath="Id" DisplayMemberPath="Name"/>
-                    <TextBlock Text="Художник" FontSize="15"/>
-                    <ComboBox Name="artistField" SelectedValuePath="Id" DisplayMemberPath="Name"/>
-                    <TextBlock Text="Дизайнер" FontSize="15"/>
-                    <ComboBox Name="designerField" SelectedValuePath="Id" DisplayMemberPath="Name"/>
-                </StackPanel>
 
-                <StackPanel Width="200">
-                    <TextBlock Text="Минимальное количество игроков" FontSize="15"/>
-                    <TextBox Name="minPlayersField"/>
-                    <TextBlock Text="Максимальное количество игроков" FontSize="15"/>
-                    <TextBox Name="maxPlayersField"/>
-                    <TextBlock Text="Цена" FontSize="15"/>
-                    <TextBox Name="priceField"/>
-                    <TextBlock Text="Время игры" FontSize="15"/>
-                    <TextBox Name="playTimeField"/>
-                    <TextBlock Text="Возрастное ограничение" FontSize="15"/>
-                    <ComboBox Name="ageRestrictionField" SelectedValuePath="Tag">
+        <StackPanel Grid.Row="0" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Image Source="/image/logo.png" Height="40" Margin="0,0,0,10"/>
+            <TextBlock Text="Добавление товара" FontSize="35" HorizontalAlignment="Center" FontWeight="Bold"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="20">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="250"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="250"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Label Grid.Row="0" Grid.Column="0" Content="Название:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="titleField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="Жанр:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Name="genreField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="4" Grid.Column="0" Content="Издатель:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Row="4" Grid.Column="1" Name="publisherField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="6" Grid.Column="0" Content="Художник:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Row="6" Grid.Column="1" Name="artistField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="8" Grid.Column="0" Content="Дизайнер:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
+                    <ComboBox Grid.Row="8" Grid.Column="1" Name="designerField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="0" Grid.Column="2" Content="Мин. игроков:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Name="minPlayersField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="2" Grid.Column="2" Content="Макс. игроков:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" Name="maxPlayersField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="4" Grid.Column="2" Content="Цена:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                    <TextBox Grid.Row="4" Grid.Column="3" Name="priceField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="6" Grid.Column="2" Content="Время игры (мин):" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                    <TextBox Grid.Row="6" Grid.Column="3" Name="playTimeField" FontSize="15" Width="200"/>
+
+                    <Label Grid.Row="8" Grid.Column="2" Content="Возрастное ограничение:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
+                    <ComboBox Grid.Row="8" Grid.Column="3" Name="ageRestrictionField" FontSize="15" Width="200" SelectedValuePath="Tag">
                         <ComboBoxItem Content="0+" Tag="0"/>
                         <ComboBoxItem Content="3+" Tag="3"/>
                         <ComboBoxItem Content="7+" Tag="7"/>
@@ -50,13 +78,15 @@
                         <ComboBoxItem Content="16+" Tag="16"/>
                         <ComboBoxItem Content="18+" Tag="18"/>
                     </ComboBox>
-                    <Button Name="selectPhoto" Content="Выбрать фотографию" Width="200" FontSize="15" Click="OnSelectPhotoClick" Margin="0,15,0,0"/>
+
+                    <Button Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="4" Name="selectPhoto" Content="Выбрать фотографию" Width="200" FontSize="15" Click="OnSelectPhotoClick" HorizontalAlignment="Center" Margin="0,15,0,0"/>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
+                    <Button Content="Сохранить" Width="100" FontSize="15" Click="OnSaveItemClick" Margin="0,0,10,0"/>
+                    <Button Content="Назад" Width="100" FontSize="15" Click="OnReturnClick"/>
                 </StackPanel>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,20,0,0" HorizontalAlignment="Center">
-                <Button Content="Сохранить" Width="100" FontSize="15" Click="OnSaveItemClick" Margin="0,0,10,0"/>
-                <Button Content="Назад" Width="100" FontSize="15" Click="OnReturnClick"/>
-            </StackPanel>
-        </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>

@@ -40,6 +40,11 @@ namespace BoardGamesStore.pages
             {
                 string imageNameToDisplay = openFileDialog.FileName.Split('\\').Last();
                 string imageName = DateTime.Now.Ticks + openFileDialog.FileName.Split('\\').Last();
+                if (imageName.Length >= 100)
+                {
+                    MessageBox.Show("Слишком длинное название файла", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 string pathToSave = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + $"\\image\\{imageName}";
                 File.Copy(openFileDialog.FileName, pathToSave);
                 this.imageName = imageName;
@@ -73,10 +78,7 @@ namespace BoardGamesStore.pages
 
         private void OnAddItemClick(object sender, RoutedEventArgs e)
         {
-            if (!AddItemChecks())
-            {
-                return;
-            }
+            if (!IsAddItemFieldsValid()) return;
             Games game = new Games
             {
                 Title = titleField.Text,
@@ -129,7 +131,7 @@ namespace BoardGamesStore.pages
             MessageBox.Show("Игра успешно добавлена");
         }
 
-        private bool AddItemChecks()
+        private bool IsAddItemFieldsValid()
         {
             if (titleField.Text == "" || 
                 genreField.SelectedIndex == -1 || 
@@ -169,6 +171,12 @@ namespace BoardGamesStore.pages
             if (!int.TryParse(playTimeField.Text, out int playTime) || playTime <= 0)
             {
                 MessageBox.Show("Введите корректное время игры.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (titleField.Text.Trim().Length >= 50)
+            {
+                MessageBox.Show("Слишком длинное название", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 

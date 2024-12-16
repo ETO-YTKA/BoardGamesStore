@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BoardGamesStore.Data
 {
-    internal class AppConnect
+    public class AppConnect
     {
         public static BGSEntities model;
     }

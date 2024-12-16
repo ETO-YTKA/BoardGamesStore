@@ -90,10 +90,8 @@ namespace BoardGamesStore.pages
 
         private void OnSaveItemClick(object sender, RoutedEventArgs e)
         {
-            if (!AddItemChecks())
-            {
-                return;
-            }
+            if (!IsFieldValid()) return;
+
             game.Title = titleField.Text;
             game.MinPlayers = Convert.ToInt32(minPlayersField.Text);
             game.MaxPlayers = Convert.ToInt32(maxPlayersField.Text);
@@ -121,6 +119,11 @@ namespace BoardGamesStore.pages
             {
                 string imageNameToDisplay = openFileDialog.FileName.Split('\\').Last();
                 string imageName = DateTime.Now.Ticks + openFileDialog.FileName.Split('\\').Last();
+                if (imageName.Length > 100)
+                {
+                    MessageBox.Show("Слишком длинное название файла", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
                 string pathToSave = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName + $"\\image\\{imageName}";
                 File.Copy(openFileDialog.FileName, pathToSave);
                 this.imageName = imageName;
@@ -133,20 +136,19 @@ namespace BoardGamesStore.pages
             AppFrame.frame.GoBack();
         }
 
-        private bool AddItemChecks()
+        private bool IsFieldValid()
         {
-            if (titleField.Text == "" ||
-                genreField.SelectedIndex == -1 ||
-                publisherField.SelectedIndex == -1 ||
-                artistField.SelectedIndex == -1 ||
-                designerField.SelectedIndex == -1 ||
-                maxPlayersField.Text == "" ||
-                minPlayersField.Text == "" ||
-                priceField.Text == "" ||
-                playTimeField.Text == "" ||
-                ageRestrictionField.Text == ""
-            )
-            {
+            if (titleField.Text == ""
+                || genreField.SelectedIndex == -1
+                || publisherField.SelectedIndex == -1
+                || artistField.SelectedIndex == -1
+                || designerField.SelectedIndex == -1
+                || maxPlayersField.Text == ""
+                || minPlayersField.Text == ""
+                || priceField.Text == ""
+                || playTimeField.Text == ""
+                || ageRestrictionField.Text == ""
+            ) {
                 MessageBox.Show("Заполните все поля", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
@@ -172,6 +174,11 @@ namespace BoardGamesStore.pages
             if (!int.TryParse(playTimeField.Text, out int playTime) || playTime <= 0)
             {
                 MessageBox.Show("Введите корректное время игры.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            if (titleField.Text.Trim().Length >= 50) {
+                MessageBox.Show("Слишком длинное название", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return false;
             }
 
