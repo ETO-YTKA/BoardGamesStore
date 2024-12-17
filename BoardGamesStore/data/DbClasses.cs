@@ -13,7 +13,6 @@ namespace BoardGamesStore.db
             get
             {
                 string imagePath = $"../../image/{Image}";
-                Console.WriteLine(imagePath);
                 return imagePath;
             }
         }

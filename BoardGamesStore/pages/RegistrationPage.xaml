@@ -21,17 +21,17 @@
         
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,0,0,10" Grid.Row="1">
             <TextBlock Text="Логин" FontSize="15"/>
-            <TextBox Name="loginField"/>
+            <TextBox Name="loginField" PreviewKeyDown="Field_PreviewKeyDown"/>
             <TextBlock Text="Пароль" FontSize="15"/>
-            <PasswordBox Name="passwordField"/>
+            <PasswordBox Name="passwordField" PreviewKeyDown="passwordField_PreviewKeyDown"/>
             <TextBlock Text="Повторите пароль" FontSize="15"/>
-            <PasswordBox Name="repPasswordField"/>
+            <PasswordBox Name="repPasswordField"  PreviewKeyDown="passwordField_PreviewKeyDown"/>
             <TextBlock Text="Имя" FontSize="15"/>
-            <TextBox Name="firstNameField"/>
+            <TextBox Name="firstNameField" PreviewKeyDown="Field_PreviewKeyDown"/>
             <TextBlock Text="Фамилия" FontSize="15"/>
-            <TextBox Name="LastNameField"/>
+            <TextBox Name="LastNameField" PreviewKeyDown="Field_PreviewKeyDown"/>
             <TextBlock Text="Отчество (опционально)" FontSize="15"/>
-            <TextBox Name="PatronymicField"/>
+            <TextBox Name="PatronymicField" PreviewKeyDown="Field_PreviewKeyDown"/>
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,20,0,0">
                 <Button Content="Зарегистрироваться" Width="150" FontSize="15" Margin="0,0,0,10" Click="RegisterButton_Click"/>
                 <Button Content="Назад" Width="150" FontSize="15" Click="GoBackButton_Click"/>

@@ -68,5 +68,23 @@ namespace BoardGamesStore.pages
                 );
             }
         }
+
+        private void Field_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void passwordField_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            if (passwordBox.Password.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

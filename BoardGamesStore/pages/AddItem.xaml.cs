@@ -25,11 +25,13 @@ namespace BoardGamesStore.pages
     public partial class AddItem : Page
     {
         private string imageName;
+        private CatalogPage parent;
 
-        public AddItem()
+        public AddItem(CatalogPage parent)
         {
             InitializeComponent();
             LoadComboBoxData();
+            this.parent = parent;
         }
 
         private void OnSelectPhotoClick(object sender, RoutedEventArgs e)
@@ -74,6 +76,7 @@ namespace BoardGamesStore.pages
         private void OnReturnClick(object sender, RoutedEventArgs e)
         {
             AppFrame.frame.GoBack();
+            parent.Search();
         }
 
         private void OnAddItemClick(object sender, RoutedEventArgs e)
@@ -129,6 +132,8 @@ namespace BoardGamesStore.pages
 
             AppConnect.model.SaveChanges();
             MessageBox.Show("Игра успешно добавлена");
+            AppFrame.frame.GoBack();
+            parent.Search();
         }
 
         private bool IsAddItemFieldsValid()
@@ -181,6 +186,15 @@ namespace BoardGamesStore.pages
             }
 
             return true;
+        }
+
+        private void Field_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

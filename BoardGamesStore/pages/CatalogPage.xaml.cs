@@ -88,7 +88,7 @@ namespace BoardGamesStore.pages
             Search();
         }
 
-        private void Search()
+        public void Search()
         {
             if (!isInit) return;
             string search = searchField.Text.Trim().ToLower();
@@ -142,21 +142,21 @@ namespace BoardGamesStore.pages
 
         private void UserRoleCheck(Users user)
         {
-            string role = user.Roles.Name;
+            int role = user.Role;
 
             switch (role)
             {
-                case "Админ":
+                case 2:
                     editItemContextOption.Visibility = Visibility.Visible;
                     deleteItemContextOption.Visibility = Visibility.Visible;
                     addItem.Visibility = Visibility.Visible;
                     break;
-                case "Пользователь":
+                case 1:
                     editItemContextOption.Visibility = Visibility.Collapsed;
                     deleteItemContextOption.Visibility = Visibility.Collapsed;
                     addItem.Visibility = Visibility.Collapsed;
                     break;
-                case "Менеджер":
+                case 3:
                     editItemContextOption.Visibility = Visibility.Visible;
                     deleteItemContextOption.Visibility = Visibility.Collapsed;
                     addItem.Visibility = Visibility.Visible;
@@ -167,7 +167,7 @@ namespace BoardGamesStore.pages
         private void OnEditItemClick(object sender, RoutedEventArgs e)
         {
             Games game = listView.SelectedItem as Games;
-            AppFrame.frame.Navigate(new EditPage(game));
+            AppFrame.frame.Navigate(new EditPage(this, game));
             Search();
         }
 
@@ -195,8 +195,17 @@ namespace BoardGamesStore.pages
 
         private void OnAddItemClick(object sender, RoutedEventArgs e)
         {
-            AppFrame.frame.Navigate(new AddItem());
+            AppFrame.frame.Navigate(new AddItem(this));
             Search();
+        }
+
+        private void Field_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

@@ -43,7 +43,7 @@
                     </Grid.RowDefinitions>
 
                     <Label Grid.Row="0" Grid.Column="0" Content="Название:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
-                    <TextBox Grid.Row="0" Grid.Column="1" Name="titleField" FontSize="15" Width="200"/>
+                    <TextBox Grid.Row="0" Grid.Column="1" Name="titleField" FontSize="15" Width="200" PreviewKeyDown="Field_PreviewKeyDown"/>
 
                     <Label Grid.Row="2" Grid.Column="0" Content="Жанр:" FontSize="15" VerticalAlignment="Center" Margin="0,0,10,0"/>
                     <ComboBox Grid.Row="2" Grid.Column="1" Name="genreField" FontSize="15" Width="200"/>
@@ -58,16 +58,16 @@
                     <ComboBox Grid.Row="8" Grid.Column="1" Name="designerField" FontSize="15" Width="200"/>
 
                     <Label Grid.Row="0" Grid.Column="2" Content="Мин. игроков:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                    <TextBox Grid.Row="0" Grid.Column="3" Name="minPlayersField" FontSize="15" Width="200"/>
+                    <TextBox Grid.Row="0" Grid.Column="3" Name="minPlayersField" FontSize="15" Width="200" PreviewKeyDown="Field_PreviewKeyDown"/>
 
                     <Label Grid.Row="2" Grid.Column="2" Content="Макс. игроков:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                    <TextBox Grid.Row="2" Grid.Column="3" Name="maxPlayersField" FontSize="15" Width="200"/>
+                    <TextBox Grid.Row="2" Grid.Column="3" Name="maxPlayersField" FontSize="15" Width="200" PreviewKeyDown="Field_PreviewKeyDown"/>
 
                     <Label Grid.Row="4" Grid.Column="2" Content="Цена:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                    <TextBox Grid.Row="4" Grid.Column="3" Name="priceField" FontSize="15" Width="200"/>
+                    <TextBox Grid.Row="4" Grid.Column="3" Name="priceField" FontSize="15" Width="200" PreviewKeyDown="Field_PreviewKeyDown"/>
 
                     <Label Grid.Row="6" Grid.Column="2" Content="Время игры (мин):" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
-                    <TextBox Grid.Row="6" Grid.Column="3" Name="playTimeField" FontSize="15" Width="200"/>
+                    <TextBox Grid.Row="6" Grid.Column="3" Name="playTimeField" FontSize="15" Width="200" PreviewKeyDown="Field_PreviewKeyDown"/>
 
                     <Label Grid.Row="8" Grid.Column="2" Content="Возрастное ограничение:" FontSize="15" VerticalAlignment="Center" Margin="20,0,10,0"/>
                     <ComboBox Grid.Row="8" Grid.Column="3" Name="ageRestrictionField" FontSize="15" Width="200" SelectedValuePath="Tag">

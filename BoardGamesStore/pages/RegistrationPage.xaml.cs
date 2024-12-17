@@ -34,6 +34,17 @@ namespace BoardGamesStore.pages
 
         public void RegisterButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!IsFieldsValid(
+                loginField.Text.Trim(),
+                firstNameField.Text.Trim(),
+                LastNameField.Text.Trim(),
+                passwordField.Password.Trim(),
+                repPasswordField.Password.Trim(),
+                PatronymicField.Text.Trim()
+            )) {
+                return;
+            }
+
             if (AppConnect.model.Users.FirstOrDefault(x => x.Login == loginField.Text.Trim()) != null)
             {
                 MessageBox.Show(
@@ -44,18 +55,6 @@ namespace BoardGamesStore.pages
                 );
                 return;
             }
-
-            if (!IsFieldsValid(
-                loginField.Text.Trim(),
-                firstNameField.Text.Trim(),
-                LastNameField.Text.Trim(),
-                passwordField.Password.Trim(),
-                repPasswordField.Password.Trim(),
-                PatronymicField.Text.Trim()
-            )) {
-
-            }
-
             string pastronymic = (PatronymicField.Text.Trim().Length == 0) ? null : PatronymicField.Text;
             Users newUser = new Users()
             {
@@ -138,6 +137,24 @@ namespace BoardGamesStore.pages
             }
 
             return true;
+        }
+
+        private void Field_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void passwordField_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            PasswordBox passwordBox = sender as PasswordBox;
+            if (passwordBox.Password.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }

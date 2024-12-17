@@ -210,6 +210,9 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="image\638700276196185877igroved_alias_01.jpg" />
+    <Resource Include="image\638700272562891247jack-caleb.gif" />
+    <Resource Include="logo.png" />
     <Resource Include="image\6386980763453888821048324939343724624.png" />
     <Resource Include="image\placeholder.jpg" />
     <Resource Include="image\logo.png" />

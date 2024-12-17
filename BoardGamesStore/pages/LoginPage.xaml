@@ -19,9 +19,9 @@
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="0,0,0,10" Grid.Row="1">
             <TextBlock Text="Логин" FontSize="15"/>
-            <TextBox Name="loginField"/>
+            <TextBox Name="loginField" PreviewKeyDown="Field_PreviewKeyDown"/>
             <TextBlock Text="Пароль" FontSize="15"/>
-            <PasswordBox Name="passwordField" Margin="0,0,0,20"/>
+            <PasswordBox Name="passwordField" Margin="0,0,0,20" PreviewKeyDown="passwordField_PreviewKeyDown"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Content="Регистрация" Width="100" FontSize="15" Margin="0,0,20,0" Click="RegisterButton_Click"/>
                 <Button Content="Вход" Width="100" FontSize="15" Click="LogInButton_Click"/>

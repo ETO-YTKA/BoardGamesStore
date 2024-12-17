@@ -26,13 +26,15 @@ namespace BoardGamesStore.pages
     {
         private string imageName;
         private Games game;
+        private CatalogPage parent;
 
-        public EditPage(Games game)
+        public EditPage(CatalogPage parent, Games game)
         {
             InitializeComponent();
             LoadComboBoxData();
             LoadGameData(game);
             this.game = game;
+            this.parent = parent;
         }
 
         private void LoadGameData(Games game)
@@ -109,12 +111,13 @@ namespace BoardGamesStore.pages
 
             AppConnect.model.SaveChanges();
             AppFrame.frame.GoBack();
+            parent.Search();
         }
 
         private void OnSelectPhotoClick(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg)|*.png;*.jpeg;*.jpg";
+            openFileDialog.Filter = "Image files (*.png;*.jpeg;*.jpg;*.gif)|*.png;*.jpeg;*.jpg;*.gif";
             if (openFileDialog.ShowDialog() == true)
             {
                 string imageNameToDisplay = openFileDialog.FileName.Split('\\').Last();
@@ -134,6 +137,7 @@ namespace BoardGamesStore.pages
         private void OnReturnClick(object sender, RoutedEventArgs e)
         {
             AppFrame.frame.GoBack();
+            parent.Search();
         }
 
         private bool IsFieldValid()
@@ -183,6 +187,15 @@ namespace BoardGamesStore.pages
             }
 
             return true;
+        }
+
+        private void Field_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            if (textBox.Text.Length > 48 && e.Key != Key.Back)
+            {
+                e.Handled = true;
+            }
         }
     }
 }
